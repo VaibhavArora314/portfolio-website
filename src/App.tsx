@@ -10,7 +10,14 @@ import { Spinner, Flex, Heading, VStack } from "@chakra-ui/react";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 const env = import.meta.env;
@@ -97,7 +104,7 @@ function App() {
         <VStack>
           <Heading size="xl">An Unexpected Error occured</Heading>
           <Heading size="md">
-            Please check your internet connection and try again later
+            Please check your internet connection or try again later
           </Heading>
         </VStack>
       </Flex>
@@ -121,6 +128,7 @@ function App() {
         color={COLOR}
         contact={contact}
         haveExperience={experiences.length > 0}
+        sendMessage={sendMessage}
       />
       <Footer />
     </>
@@ -250,4 +258,22 @@ const getContactDetails = async () => {
     contactDetails[propertyName as keyof typeof contactDetails] = data.link;
   });
   return contactDetails;
+};
+
+const sendMessage = async (name: string, contact: string, message: string) => {
+  try {
+    if (name === "") throw new Error("Name cannot be empty!");
+    if (contact === "") throw new Error("Contact cannot be empty!");
+    if (message === "") throw new Error("Message cannot be empty!");
+
+    await addDoc(collection(firestore, "messages"), {
+      name,
+      contact,
+      message,
+      created: serverTimestamp(),
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
 };

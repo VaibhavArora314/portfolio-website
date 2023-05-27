@@ -17,6 +17,11 @@ interface IProp {
   color: string;
   contact: IContact;
   haveExperience: boolean;
+  sendMessage: (
+    name: string,
+    contact: string,
+    message: string
+  ) => Promise<boolean>;
 }
 
 interface IContact {
@@ -29,6 +34,7 @@ export default function Contact({
   color = "teal",
   contact,
   haveExperience,
+  sendMessage,
 }: IProp) {
   const linkedin = () => {
     window.open(`${contact.linkedin}`, "_blank", "noreferrer,noopener");
@@ -68,7 +74,7 @@ export default function Contact({
           >
             <Heading fontSize={"3xl"}>Let's stay in touch!</Heading>
             <Fade triggerOnce>
-              <ContactForm />
+              <ContactForm color={color} sendMessage={sendMessage} />
             </Fade>
             <Center>
               <HStack pt={4} spacing={4}>
