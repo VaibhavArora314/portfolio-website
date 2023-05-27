@@ -6,6 +6,7 @@ import Experience, { IExperience } from "./components/Experience";
 import Projects, { IProject, IButton } from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import { Spinner, Flex, Heading, VStack } from "@chakra-ui/react";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
@@ -45,34 +46,62 @@ function App() {
     github: "",
     email: "",
   });
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const getPortfolioData = async () => {
-    const { heroContent, aboutContent } = await getMiscContent();
-    setHeroData(heroContent);
-    setAbout(aboutContent);
+    try {
+      const { heroContent, aboutContent } = await getMiscContent();
+      setHeroData(heroContent);
+      setAbout(aboutContent);
 
-    const sk = await getSkills();
-    setSkills(sk);
+      const sk = await getSkills();
+      setSkills(sk);
 
-    const exp = await getExperiences();
-    setExperiences(exp);
+      const exp = await getExperiences();
+      setExperiences(exp);
 
-    const { projectsData, categoriesData } = await getProjectsAndCategories();
-    setProjects(projectsData);
-    setCategories(categoriesData);
+      const { projectsData, categoriesData } = await getProjectsAndCategories();
+      setProjects(projectsData);
+      setCategories(categoriesData);
 
-    const cd = await getContactDetails();
-    setContact(cd);
+      const cd = await getContactDetails();
+      setContact(cd);
 
-    setloading(false);
+      setLoading(false);
+    } catch (error) {
+      setError(true);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     getPortfolioData();
   }, []);
 
-  if (loading) return <></>;
+  if (loading)
+    return (
+      <Flex h="calc(80vh)" align="center" justify="center">
+        <Spinner
+          color={`${COLOR}.400`}
+          size="xl"
+          thickness="4px"
+          speed="0.7s"
+        />
+      </Flex>
+    );
+
+  if (error)
+    return (
+      <Flex h="calc(80vh)" align="center" justify="center">
+        <VStack>
+          <Heading size="xl">An Unexpected Error occured</Heading>
+          <Heading size="md">
+            Please check your internet connection and try again later
+          </Heading>
+        </VStack>
+      </Flex>
+    );
 
   return (
     <>
@@ -102,6 +131,8 @@ export default App;
 
 const getMiscContent = async () => {
   const querySnapshot = await getDocs(collection(firestore, "misc"));
+  if (querySnapshot.empty && querySnapshot.metadata.fromCache)
+    throw new Error("Server or Client Offline");
   const heroContent = {
     name: "",
     roles: "",
@@ -128,6 +159,8 @@ const getSkills = async () => {
   const querySnapshot = await getDocs(
     query(collection(firestore, "skills"), orderBy("id"))
   );
+  if (querySnapshot.empty && querySnapshot.metadata.fromCache)
+    throw new Error("Server or Client Offline");
   const skills: ISkill[] = [];
   querySnapshot.forEach((doc) => {
     const data = doc.data();
@@ -144,6 +177,8 @@ const getExperiences = async () => {
   const querySnapshot = await getDocs(
     query(collection(firestore, "experiences"), orderBy("date", "desc"))
   );
+  if (querySnapshot.empty && querySnapshot.metadata.fromCache)
+    throw new Error("Server or Client Offline");
   const experiences: IExperience[] = [];
   querySnapshot.forEach((doc) => {
     const data = doc.data();
@@ -166,6 +201,8 @@ const getProjectsAndCategories = async () => {
   const querySnapshot = await getDocs(
     query(collection(firestore, "projects"), orderBy("date", "desc"))
   );
+  if (querySnapshot.empty && querySnapshot.metadata.fromCache)
+    throw new Error("Server or Client Offline");
   const projectsData: IProject[] = [];
   let categoriesData: string[] = [];
   querySnapshot.forEach((doc) => {
@@ -199,6 +236,8 @@ const getProjectsAndCategories = async () => {
 
 const getContactDetails = async () => {
   const querySnapshot = await getDocs(collection(firestore, "contact"));
+  if (querySnapshot.empty && querySnapshot.metadata.fromCache)
+    throw new Error("Server or Client Offline");
   const contactDetails = {
     linkedin: "",
     github: "",
