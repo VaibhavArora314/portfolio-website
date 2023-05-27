@@ -72,7 +72,9 @@ export default function Contact({
             textAlign={"center"}
             alignItems="center"
           >
-            <Heading fontSize={"3xl"}>Let's stay in touch!</Heading>
+            <Heading fontSize={{ base: "xl", lg: "2xl" }}>
+              Get in touch!
+            </Heading>
             <Fade triggerOnce>
               <ContactForm color={color} sendMessage={sendMessage} />
             </Fade>

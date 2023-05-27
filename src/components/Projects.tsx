@@ -122,14 +122,21 @@ export default function Projects({
 
                       <Stack>
                         <CardBody alignContent="left">
-                          <Heading size="md">{project.name}</Heading>
+                          <Heading size={{ base: "sm", md: "md" }}>
+                            {project.name}
+                          </Heading>
 
-                          <Text py={2}>{project.description}</Text>
+                          <Text py={2} size={{ base: "sm", md: "md" }}>
+                            {project.description}
+                          </Text>
 
                           <HStack py={2}>
                             {project.buttons.map((button) => (
                               <a key={button.text} href={button.href}>
-                                <Button color={`${color}.400`}>
+                                <Button
+                                  color={`${color}.400`}
+                                  size={{ base: "sm", md: "md" }}
+                                >
                                   {button.text}
                                 </Button>
                               </a>

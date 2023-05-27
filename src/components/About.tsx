@@ -28,7 +28,7 @@ interface IProp {
 export default function About({ color = "teal", about, skills }: IProp) {
   return (
     <>
-      <Container maxW={"3xl"} id="about">
+      <Container maxW={"4xl"} id="about">
         <Stack
           as={Box}
           textAlign={"center"}
@@ -46,7 +46,7 @@ export default function About({ color = "teal", about, skills }: IProp) {
             </HStack>
             <Divider orientation="horizontal" />
           </Stack>
-          <Text color={"gray.600"} fontSize={"xl"} px={4}>
+          <Text color={"gray.600"} fontSize={{ base: "md", sm: "lg", md: "xl" }} px={4}>
             {about}
           </Text>
           <Stack align="center" direction="row" px={4}>
@@ -67,10 +67,10 @@ export default function About({ color = "teal", about, skills }: IProp) {
               {skills.map((skill, index) => (
                 <Tooltip label={skill.name} fontSize="md" hasArrow key={index}>
                   <Image
-                    boxSize="75px"
+                    boxSize={{ base: "3rem", md: "4rem" , lg:"5rem"}}
                     objectFit="cover"
                     src={skill.logoURL}
-                    borderRadius="3xl"
+                    borderRadius={{ base: "xl", md: "3xl" }}
                     bg={useColorModeValue("gray.100", "gray.900")}
                     boxShadow="base"
                     cursor="pointer"

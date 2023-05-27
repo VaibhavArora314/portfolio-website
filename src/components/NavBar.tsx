@@ -125,14 +125,16 @@ const Nav = ({ haveExperience = true }) => {
                       >
                         About
                       </Button>
-                      <Button
-                        variant="ghost"
-                        onClick={() => {
-                          scrollToSection(2);
-                        }}
-                      >
-                        Experience
-                      </Button>
+                      {haveExperience && (
+                        <Button
+                          variant="ghost"
+                          onClick={() => {
+                            scrollToSection(2);
+                          }}
+                        >
+                          Experience
+                        </Button>
+                      )}
                       <Button
                         variant="ghost"
                         onClick={() => {

@@ -59,7 +59,7 @@ export default function Hero({ color = "teal", heroData }: IProp) {
           </Heading>
           <Text
             color={"gray.500"}
-            fontSize={{ base: "sm", sm: "lg", md: "xl" }}
+            fontSize={{ base: "md", sm: "lg", md: "xl" }}
           >
             {heroData.desc}
           </Text>
