@@ -14,6 +14,7 @@ import {
   SimpleGrid,
   Badge,
   Center,
+  Flex,
 } from "@chakra-ui/react";
 import { Fade } from "react-awesome-reveal";
 import { useState } from "react";
@@ -73,27 +74,29 @@ export default function Projects({
             </HStack>
             <Divider orientation="horizontal" />
           </Stack>
-          <Center px={{ base: 2, md: 4 }}>
-            <ButtonGroup variant="outline">
-              <Button
-                size={{ base: "xs", sm: "md" }}
-                colorScheme={selected === "All" ? `${color}` : "gray"}
-                onClick={() => handleSelected("All")}
-              >
-                All
-              </Button>
-              {categories.map((category) => (
+          {categories.length > 1 && (
+            <Center px={{ base: 2, md: 4 }}>
+              <ButtonGroup variant="outline">
                 <Button
-                  key={category}
                   size={{ base: "xs", sm: "md" }}
-                  colorScheme={selected === category ? `${color}` : "gray"}
-                  onClick={() => handleSelected(category)}
+                  colorScheme={selected === "All" ? `${color}` : "gray"}
+                  onClick={() => handleSelected("All")}
                 >
-                  {category}
+                  All
                 </Button>
-              ))}
-            </ButtonGroup>
-          </Center>
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    size={{ base: "xs", sm: "md" }}
+                    colorScheme={selected === category ? `${color}` : "gray"}
+                    onClick={() => handleSelected(category)}
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Center>
+          )}
           <Stack px={4} spacing={4}>
             <SimpleGrid columns={[1, 2, 3]} px={4} spacing={4}>
               {projects
@@ -112,6 +115,7 @@ export default function Projects({
                         base: "column",
                       }}
                       overflow="hidden"
+                      h={"full"}
                     >
                       <Image
                         objectFit="cover"
@@ -142,13 +146,13 @@ export default function Projects({
                               </a>
                             ))}
                           </HStack>
-                          <HStack pt={4} spacing={2}>
+                          <Flex direction="row" pt={4} gap={1} flexWrap="wrap">
                             {project.badges.map((badge) => (
                               <Badge key={badge} colorScheme={color}>
                                 {badge}
                               </Badge>
                             ))}
-                          </HStack>
+                          </Flex>
                         </CardBody>
                       </Stack>
                     </Card>
