@@ -46,7 +46,7 @@ export default function About({ color = "teal", about, skills }: IProp) {
             </HStack>
             <Divider orientation="horizontal" />
           </Stack>
-          <Text color={"gray.600"} fontSize={{ base: "md", sm: "lg", md: "xl" }} px={4}>
+          <Text color={"gray.500"} fontSize={{ base: "md", sm: "lg", md: "xl" }} px={4}>
             {about}
           </Text>
           <Stack align="center" direction="row" px={4}>

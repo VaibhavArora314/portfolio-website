@@ -57,12 +57,14 @@ export default function Hero({ color = "teal", heroData }: IProp) {
               {heroData.roles}
             </Text>
           </Heading>
-          <Text
-            color={"gray.500"}
-            fontSize={{ base: "md", sm: "lg", md: "xl" }}
-          >
-            {heroData.desc}
-          </Text>
+          {heroData.desc && (
+            <Text
+              color={"gray.500"}
+              fontSize={{ base: "md", sm: "lg", md: "xl" }}
+            >
+              {heroData.desc}
+            </Text>
+          )}
           <Stack
             direction={"column"}
             spacing={3}
@@ -74,7 +76,8 @@ export default function Hero({ color = "teal", heroData }: IProp) {
               colorScheme={color}
               bg={`${color}.400`}
               rounded={"full"}
-              px={6}
+              px={{ base: 3, md: 6 }}
+              size={{ base: "md", md: "lg" }}
               _hover={{
                 bg: `${color}.500`,
               }}
