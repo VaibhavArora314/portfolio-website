@@ -16,7 +16,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
-import logo from "../assets/v.png";
+import logo from "../assets/v2.png";
 
 const Nav = ({ haveExperience = true }) => {
   const { colorMode, toggleColorMode } = useColorMode();

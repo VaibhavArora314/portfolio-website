@@ -236,6 +236,7 @@ const getProjectsAndCategories = async () => {
         tags: data.tags,
         badges: data.badges,
         buttons,
+        imageLink: data.imageLink ? data.imageLink : "",
       });
     }
   });

@@ -33,6 +33,7 @@ export interface IProject {
   tags: string[];
   badges: string[];
   buttons: IButton[];
+  imageLink: string;
 }
 
 interface IProp {
@@ -117,12 +118,23 @@ export default function Projects({
                       overflow="hidden"
                       h={"full"}
                     >
-                      <Image
-                        objectFit="cover"
-                        src={project.image}
-                        h={{ base: "12rem" }}
-                        fallbackSrc={defaultLogo}
-                      />
+                      {project.imageLink ? (
+                        <a href={project.imageLink} target="_blank">
+                          <Image
+                            objectFit="cover"
+                            src={project.image}
+                            h={{ base: "12rem" }}
+                            fallbackSrc={defaultLogo}
+                          />
+                        </a>
+                      ) : (
+                        <Image
+                          objectFit="cover"
+                          src={project.image}
+                          h={{ base: "12rem" }}
+                          fallbackSrc={defaultLogo}
+                        />
+                      )}
 
                       <Stack>
                         <CardBody alignContent="left">
