@@ -123,6 +123,7 @@ function App() {
         projects={projects}
         categories={categories}
         haveExperience={experiences.length > 0}
+        github={contact.github}
       />
       <Contact
         color={COLOR}

@@ -15,6 +15,7 @@ import {
   Badge,
   Center,
   Flex,
+  Link,
 } from "@chakra-ui/react";
 import { Fade } from "react-awesome-reveal";
 import { useState } from "react";
@@ -41,6 +42,7 @@ interface IProp {
   projects: IProject[];
   categories: string[];
   haveExperience: boolean;
+  github: string;
 }
 
 export default function Projects({
@@ -48,6 +50,7 @@ export default function Projects({
   projects,
   categories,
   haveExperience = true,
+  github = "",
 }: IProp) {
   const [selected, setSelected] = useState("All");
 
@@ -176,6 +179,14 @@ export default function Projects({
                 ))}
             </SimpleGrid>
           </Stack>
+          {github && (
+            <Text fontWeight={600} size={"lg"}>
+              Checkout My Other Projects on my{" "}
+              <Link href={github} target="_blank" color="blue.400">
+                Github Profile
+              </Link>
+            </Text>
+          )}
         </Stack>
       </Container>
     </>
